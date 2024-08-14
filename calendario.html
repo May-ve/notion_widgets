@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!-- original:https://codepen.io/boudra/pen/raErwP -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- origem da fonte-->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+        </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calendarioo</title>
+    
+    <!-- define a fonte e a cor da pag-->
+    <style>
+        body {
+    font-family: 'Lora', serif; 
+    background-color: transparent; 
+}
+
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  flex-direction: column;
+  min-height: 50%;
+}
+
+button::-moz-focus-inner { 
+  border: 0;
+  padding: 0;
+}
+
+#calendario {
+    margin:  0 auto;
+    /* height: 330px; */
+    /* width: 350px; */
+    font-size: 14px;
+    /* box-shadow: 0px 1px 4px rgba(0,0,0,0.4); */
+}
+table {/* definições da tabela do calendário*/
+        border-collapse: collapse; /* modelo da borda */
+        table-layout: fixed; /* layout fixo */
+        box-shadow: 1px 1px 30px rgba(255, 255, 255, 0.719); /* sombra */
+        background-color: transparent; /* cor da página de fundo */
+        position: absolute;} /* */
+
+td,th 
+        { text-align: center; background-color: #f0f0f0;} /* alinhamento do txt e cor de fundo*/
+th
+    { padding: 10px;} /* altura do cabeçalho */
+tr:first-child th {
+    font-size: 20px;
+    font-weight: bold;
+    border-left: none;
+    border-top: none;
+}
+td:last-child, th:last-child {
+  border-right: none;
+}
+
+th {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(0,0,0,0.1);
+    background-color: #4683f5c7;
+    color: #ffffff;
+    text-shadow: 0px -1px px rgba(0, 0, 0, 0.13);
+    font-weight: normal;
+}
+th .any { /* ano */
+    font-size: 14px;
+    font-weight: normal;
+    display: block;
+    text-shadow: none;
+    color: rgba(2, 1, 1, 0.712); 
+}
+tr:nth-child(2) th {
+    padding: 5px;
+}
+td {
+    padding: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+td>span {
+    color: #150024;
+    padding: 10px;
+    display: block;
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+td:nth-child(even) >span {
+    background-color: rgba(41, 23, 63, 0.062); /* cor secundaria do calendario*/
+}
+td:first-child>span, 
+td:last-child>span {
+    background-color: #98bdc9; /* finais de semana */
+}
+td.avui>span { /* dia atual */
+    font-weight: bold;
+    background-color: #51ff0081;
+    color: #07791ab4;
+    border: 2px solid rgba(255, 255, 255, 0.664);
+}
+td.fora > span { 
+    opacity: 0.2; /* opacidade dos dias que nao fazem parte do mês */
+}
+td > span:hover { /* destaque do cursor*/
+    background: #be8888;
+    color: #fff;
+}
+.prox-mes, .mes-ant { /* botões */
+    background: rgba(56, 236, 152, 0.384);
+    color: #ffffff;
+    font-family: inherit;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: inherit;
+    padding: px 10px 5px 10px;
+    line-height: 1px;
+    height: 30px;
+    width: 30px;
+    vertical-align: middle;
+    border-radius: 100%;
+    position: absolute;
+    top: 15px;
+}
+.prox-mes { right: 10px; padding-left: 9px; }
+.mes-ant { left: 10px; padding-right: 9px;}
+.prox-mes:hover,
+.mes-ant:hover {
+    background: rgb(18, 199, 114);
+}
+button:hover { cursor: pointer; }
+button:focus { outline: none; }
+
+footer {
+  text-align: center;
+  color: #00000077;
+  font-weight: normal;
+  text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);
+  font-size: 0.8em;
+  padding: 20px;
+}
+
+footer a,
+footer a:link {
+  color: #000000;
+  text-decoration: none;
+}
+    </style>
+</head>
+<body>
+    <div class="">
+        <div id="calendario"></div>
+      </div>
+      <script>
+        var mês = [
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'Julho',
+    'Agosto',
+    'Setembro',
+    'Outubro',
+    'Novembro',
+    'Dezembro'
+];
+
+var dias = [
+    'Domingo',
+    'Segunda',
+    'Terça',
+    'Quarta',
+    'Quinta',
+    'Sexta',
+    'Sábado'
+];
+
+var dias_abrev = [
+    'Dom',
+    'Seg',
+    'Ter',
+    'Qua',
+    'Qui',
+    'Sex',
+    'Sáb'
+];
+
+Number.prototype.pad = function(num) {
+    var str = '';
+    for(var i = 0; i < (num-this.toString().length); i++)
+        str += '0';
+    return str += this.toString();
+}
+
+function calendario(widget, data)
+{
+
+    var original = widget.getElementsByClassName('trc-d-mes')[0];
+
+    if(typeof original === 'undefined')
+    {
+        original = document.createElement('table');
+        original.setAttribute('data-actual',
+			      data.getFullYear() + '/' +
+			      data.getMonth().pad(2) + '/' +
+			      data.getDate().pad(2))
+        widget.appendChild(original);
+    }
+
+    var diff = data - new Date(original.getAttribute('data-actual'));
+
+    diff = new Date(diff).getMonth();
+
+    var e = document.createElement('table');
+
+    e.className = diff  === 0 ? 'troca-p-mes-post' : 'troca-p-mes-ant';
+    e.innerHTML = '';
+
+    widget.appendChild(e);
+
+    e.setAttribute('data-actual',
+                   data.getFullYear() + '/' +
+                   data.getMonth().pad(2) + '/' +
+                   data.getDate().pad(2))
+
+    var fila = document.createElement('tr');
+    var titol = document.createElement('th');
+    titol.setAttribute('colspan', 7);
+
+    var boto_prev = document.createElement('button');
+    boto_prev.className = 'mes-ant';
+    boto_prev.innerHTML = '&#9666;';
+
+    var boto_next = document.createElement('button');
+    boto_next.className = 'prox-mes';
+    boto_next.innerHTML = '&#9656;';
+
+    titol.appendChild(boto_prev);
+    titol.appendChild(document.createElement('span')).innerHTML = 
+        mês[data.getMonth()] + '<span class="any">' + data.getFullYear() + '</span>';
+
+    titol.appendChild(boto_next);
+
+    boto_prev.onclick = function() {
+        data.setMonth(data.getMonth() - 1);
+        calendario(widget, data);
+    };
+
+    boto_next.onclick = function() {
+        data.setMonth(data.getMonth() + 1);
+        calendario(widget, data);
+    };
+
+    fila.appendChild(titol);
+    e.appendChild(fila);
+
+    fila = document.createElement('tr');
+
+    for(var i = 0; i < 7; i++)
+    {
+        fila.innerHTML += '<th>' + dias_abrev[i] + '</th>';
+    }
+
+    fila.innerHTML;
+    e.appendChild(fila);
+
+    /* Obtém o dia que vai acabar o mês anterior*/
+    var inici_mes =
+        new Date(data.getFullYear(), data.getMonth(), 0).getDay();
+
+    var actual = new Date(data.getFullYear(),
+			  data.getMonth(),
+			  -inici_mes);
+
+    /* 6 semanas para cobrir todas as possibilidades
+     *  Quedaria mes consistent alhora de mostrar molts mês 
+     *  en una quadricula */
+    for(var s = 0; s < 6; s++)
+    {
+        var fila = document.createElement('tr');
+
+        for(var d = 1; d < 8; d++)
+        {
+	    var cela = document.createElement('td');
+	    var span = document.createElement('span');
+
+	    cela.appendChild(span);
+
+            span.innerHTML = actual.getDate();
+
+            if(actual.getMonth() !== data.getMonth())
+                cela.className = 'fora';
+
+            /* Si es avui el decorem */
+            if(data.getDate() == actual.getDate() &&
+	       data.getMonth() == actual.getMonth())
+		cela.className = 'avui';
+
+	    actual.setDate(actual.getDate()+1);
+            fila.appendChild(cela);
+        }
+
+        e.appendChild(fila);
+    }
+
+    setTimeout(function() {
+        e.className = 'trc-d-mes';
+        original.className +=
+        diff === -1 ? ' troca-p-mes-ant' : ' troca-p-mes-post';
+    }, 20);
+
+    original.className = 'inactiu';
+
+    setTimeout(function() {
+        var inactius = document.getElementsByClassName('inactiu');
+        for(var i = 0; i < inactius.length; i++)
+            widget.removeChild(inactius[i]);
+    }, 1000);
+
+}
+
+calendario(document.getElementById('calendario'), new Date());
+
+    </script>
+</body>
+</html>
