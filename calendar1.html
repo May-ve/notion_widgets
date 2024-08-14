@@ -11,6 +11,11 @@
             background-color: transparent;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .wrapper {
@@ -18,93 +23,57 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            min-height: 100vh;
+            width: 100%;
+            height: 100%;
             padding: 20px;
             box-sizing: border-box;
-        }
-
-        button::-moz-focus-inner {
-            border: 0;
-            padding: 0;
         }
 
         #calendari {
             margin: 0 auto;
             width: 100%;
+            height: 100%;
             max-width: 350px;
+            max-height: 330px;
             font-size: 14px;
+            display: flex;
+            flex-direction: column;
         }
 
         table {
             width: 100%;
+            height: 100%;
             border-collapse: collapse;
             table-layout: fixed;
             box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
             background-color: transparent;
-            position: relative;
         }
 
-        td, th {
+        th, td {
             text-align: center;
             background-color: transparent;
-        }
-
-        th {
-            padding: 10px;
-        }
-
-        tr:first-child th {
-            font-size: 20px;
-            font-weight: bold;
-            border-left: none;
-            border-top: none;
-        }
-
-        td:last-child, th:last-child {
-            border-right: none;
-        }
-
-        th {
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            border-right: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: #9b59b6;
-            color: #fff;
-            text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);
-            font-weight: normal;
-        }
-
-        th .any {
-            font-size: 12px;
-            font-weight: normal;
-            display: block;
-            text-shadow: none;
-            color: rgba(0, 0, 0, 0.4);
-        }
-
-        tr:nth-child(2) th {
             padding: 5px;
         }
 
-        td {
-            padding: 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        th {
+            font-size: 1.2em;
+            background-color: #9b59b6;
+            color: #fff;
+        }
+
+        th .any {
+            font-size: 0.8em;
+            font-weight: normal;
+            display: block;
+            color: rgba(0, 0, 0, 0.4);
         }
 
         td > span {
             color: #555;
-            padding: 10px;
             display: block;
             border: 2px solid transparent;
             transition: border 0.3s ease;
-        }
-
-        td:nth-child(even) > span {
-            background-color: transparent;
-        }
-
-        td:last-child > span,
-        td:nth-child(6) > span {
-            color: #9b59b6;
+            font-size: 1em;
         }
 
         td.avui > span {
@@ -126,43 +95,25 @@
         .boto-next, .boto-prev {
             background: rgba(0, 0, 0, 0.1);
             color: #fff;
-            font-family: inherit;
+            font-size: 1.2em;
             border: none;
-            font-size: 18px;
-            font-weight: bold;
-            text-shadow: inherit;
-            padding: 2px 10px 5px 10px;
-            line-height: 1px;
+            padding: 5px;
             height: 30px;
             width: 30px;
-            vertical-align: middle;
-            border-radius: 100%;
+            border-radius: 50%;
             position: absolute;
-            top: 15px;
+            top: 10px;
         }
 
-        .boto-next { right: 10px; padding-left: 13px; }
-        .boto-prev { left: 10px; padding-right: 13px;}
+        .boto-next { right: 10px; }
+        .boto-prev { left: 10px; }
+
         .boto-next:hover, .boto-prev:hover {
             background: rgba(0, 0, 0, 0.2);
         }
 
         button:hover { cursor: pointer; }
         button:focus { outline: none; }
-
-        footer {
-            text-align: center;
-            color: #ddd;
-            font-weight: normal;
-            text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.2);
-            font-size: 0.8em;
-            padding: 20px;
-        }
-
-        footer a, footer a:link {
-            color: #fff;
-            text-decoration: none;
-        }
     </style>
 </head>
 <body>
@@ -175,7 +126,6 @@
             'July', 'August', 'September', 'October', 'November', 'December'
         ];
 
-        var dies = ['Sunday', 'Monday', 'Tuesday', 'Wedensday', 'Thursday', 'Friday', 'Saturday'];
         var dies_abr = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
         Number.prototype.pad = function(num) {
@@ -242,17 +192,16 @@
             e.appendChild(fila);
 
             fila = document.createElement('tr');
-            for (var i = 1; i < 7; i++) {
+            for (var i = 0; i < 7; i++) {
                 fila.innerHTML += '<th>' + dies_abr[i] + '</th>';
             }
-            fila.innerHTML += '<th>' + dies_abr[0] + '</th>';
             e.appendChild(fila);
 
             var inici_mes = new Date(data.getFullYear(), data.getMonth(), -1).getDay();
             var actual = new Date(data.getFullYear(), data.getMonth(), -inici_mes);
 
             for (var s = 0; s < 6; s++) {
-                var fila = document.createElement('tr');
+                fila = document.createElement('tr');
 
                 for (var d = 1; d < 8; d++) {
                     var cela = document.createElement('td');
@@ -292,4 +241,3 @@
     </script>
 </body>
 </html>
-
