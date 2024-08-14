@@ -20,6 +20,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 40vh;
 }
 
 .wrapper {
@@ -45,7 +46,7 @@ button::-moz-focus-inner {
 table {/* definições da tabela do calendário*/
         border-collapse: collapse; /* modelo da borda */
         table-layout: fixed; /* layout fixo */
-        box-shadow: 1px 1px 1px rgba(255, 255, 255, 0.719); /* sombra */
+        box-shadow: px px px rgba(255, 255, 255, 0.719); /* sombra */
         background-color: transparent; /* cor da página de fundo */
         position: absolute;} /* */
 
@@ -330,6 +331,18 @@ function calendario(widget, data)
 }
 
 calendario(document.getElementById('calendario'), new Date());
+function ajustaAlturaPagina() {
+    var calendario = document.getElementById('calendario');
+    var alturaCalendario = calendario.offsetHeight;
+    document.body.style.height = alturaCalendario + 'px';
+}
+
+// Chama a função após o calendário ser renderizado
+calendario(document.getElementById('calendario'), new Date());
+ajustaAlturaPagina();
+
+// Opcional: Ajusta a altura quando o calendário é atualizado
+window.addEventListener('resize', ajustaAlturaPagina);
 
     </script>
 </body>
