@@ -1,9 +1,13 @@
+<!-- 
+Source https://codepen.io/ismailvtl/pen/KrVrbp
+-->
 <html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap'); /* Importa uma fonte do Google Fonts */
-
-/* Definição de variáveis CSS para cores e estilos */
+    
+@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
 :root {
     --calendar-bg-color: #517a8f;
     --calendar-font-color: #FFF;
@@ -15,174 +19,168 @@
     --calendar-nextprev-bg-color: #006a94;
 }
 
-/* Reseta margens e espaçamentos padrão e ajusta o box-sizing */
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
-body {
-    background-color: transparent; /* Torna o fundo do corpo transparente */
-}
-
+    body{
+    background-color: transparent;
+    }
 .calendar {
-    /* Estilos gerais para o calendário */
-    font-family: 'Nova Mono', monospace; /* Fonte do calendário */
-    position: relative; /* Permite o posicionamento relativo dos elementos internos */
-    width: 100%; /* Permite que o calendário ocupe 100% do espaço do contêiner pai */
-    max-width: 600px; /* Limita a largura máxima para melhor legibilidade */
-    background: var(--calendar-bg-color); /* Fundo do calendário */
-    color: var(--calendar-font-color); /* Cor do texto do calendário */
-    margin: 20px auto; /* Centraliza o calendário horizontalmente */
-    overflow: visible; /* Esconde o conteúdo que ultrapassar o contêiner */
-    font-weight: normal; /* Define a espessura da fonte */
+    font-family: 'Nova Mono', monospace;
+    position: relative;
+    max-width: 400px; /*change as per your design need */
+    min-width: 320px;
+    background: var(--calendar-bg-color);
+    color: var(--calendar-font-color);
+    margin: 20px auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-weight: normal;
 }
 
 .calendar-inner {
-    padding: 10px; /* Espaçamento interno do calendário */
-    width: 100%; /* O calendário interno ocupa todo o espaço do contêiner externo */
+    padding: 10px 10px;
 }
 
 .calendar .calendar-inner .calendar-body {
-    /* Grid layout para os dias do calendário */
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Cria 7 colunas iguais para os dias da semana */
-    text-align: center; /* Centraliza o texto dentro das células */
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
 }
 
 .calendar .calendar-inner .calendar-body div {
-    /* Estilo dos dias do calendário */
     padding: 4px;
-    min-height: 30px; /* Altura mínima para as células do calendário */
-    line-height: 30px; /* Alinhamento vertical do texto */
-    border: 1px solid transparent; /* Bordas transparentes que aparecem ao passar o mouse */
-    margin: 10px 2px 0px; /* Margens entre os dias */
+    min-height: 30px;
+    line-height: 30px;
+    border: 1px solid transparent;
+    margin: 10px 2px 0px;
 }
 
 .calendar .calendar-inner .calendar-body div:nth-child(-n+7) {
-    /* Estilo para os nomes dos dias da semana */
-    border-bottom: 1px solid var(--weekdays-border-bottom-color); /* Linha inferior destacada */
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--weekdays-border-bottom-color);
+}
+
+.calendar .calendar-inner .calendar-body div:nth-child(-n+7):hover {
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--weekdays-border-bottom-color);
 }
 
 .calendar .calendar-inner .calendar-body div>a {
-    /* Estilo para os links de cada data */
-    color: var(--calendar-font-color); /* Cor do texto dos links */
-    text-decoration: none; /* Remove sublinhado dos links */
+    color: var(--calendar-font-color);
+    text-decoration: none;
     display: flex;
-    justify-content: center; /* Centraliza o texto horizontalmente */
+    justify-content: center;
 }
 
 .calendar .calendar-inner .calendar-body div:hover {
-    /* Efeito de hover para os dias do calendário */
-    border: 1px solid var(--calendar-date-hover-color); /* Cor de borda ao passar o mouse */
+    border: 1px solid var(--calendar-date-hover-color);
+}
+
+.calendar .calendar-inner .calendar-body div.empty-dates:hover {
+    border: 1px solid transparent;
 }
 
 .calendar .calendar-inner .calendar-controls {
-    /* Estilo para os controles do calendário (mês, ano, navegação) */
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Três colunas iguais para navegação e título */
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .calendar .calendar-inner .calendar-controls a {
-    color: var(--calendar-font-color); /* Cor do texto dos links de navegação */
+    color: var(--calendar-font-color);
 }
 
 .calendar .calendar-inner .calendar-today-date {
-    /* Estilo para a data de hoje */
     display: grid;
-    text-align: center; /* Centraliza o texto */
-    cursor: pointer; /* Indica que é clicável */
-    margin: 3px 0px; /* Margem acima e abaixo */
-    background: var(--calendar-current-date-color); /* Fundo da data atual */
-    padding: 8px 0px; /* Espaçamento interno */
+    text-align: center;
+    cursor: pointer;
+    margin: 3px 0px;
+    background: var(--calendar-current-date-color);
+    padding: 8px 0px;
 }
 
 .calendar .calendar-inner .calendar-controls .calendar-year-month {
-    /* Estilo para o contêiner de mês e ano */
     display: flex;
-    justify-content: space-evenly; /* Espaça igualmente o conteúdo */
-    align-items: center; /* Alinha o conteúdo verticalmente ao centro */
+    min-width: 100px;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .calendar .calendar-inner .calendar-controls .calendar-next {
-    text-align: right; /* Alinha o botão "próximo" à direita */
+    text-align: right;
 }
 
 .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-year-label,
 .calendar .calendar-inner .calendar-controls .calendar-year-month .calendar-month-label {
-    font-weight: bold; /* Negrito para o ano e o mês */
-    font-size: 20px; /* Tamanho da fonte */
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .calendar .calendar-inner .calendar-body .calendar-today {
-    /* Estilo para o dia de hoje no calendário */
-    background: var(--calendar-today-color); /* Cor de fundo especial para o dia de hoje */
+    background: var(--calendar-today-color);
 }
 
 .calendar .calendar-inner .calendar-body .calendar-today:hover {
-    border: 1px solid transparent; /* Sem borda ao passar o mouse sobre o dia de hoje */
+    border: 1px solid transparent;
 }
 
 .calendar .calendar-inner .calendar-body .calendar-today a {
-    outline: 2px solid var(--calendar-today-innerborder-color); /* Destaque ao redor do texto */
+    outline: 2px solid var(--calendar-today-innerborder-color);
 }
 
 .calendar .calendar-inner .calendar-controls .calendar-next a,
 .calendar .calendar-inner .calendar-controls .calendar-prev a {
-    font-family: consolas, sans-serif; /* Fonte dos botões de navegação */
-    font-size: 26px; /* Tamanho da fonte dos botões */
-    text-decoration: none; /* Remove sublinhado */
-    padding: 4px 12px; /* Espaçamento interno */
-    display: inline-block; /* Torna os botões blocos em linha */
-    background: var(--calendar-nextprev-bg-color); /* Fundo dos botões */
-    margin: 0 0 10px 0; /* Margem inferior */
-}
-
-/* Estilos responsivos para dispositivos menores */
-@media (max-width: 500px) {
-    .calendar {
-        max-width: 100%; /* Permite que o calendário ocupe todo o espaço disponível */
-        margin: 10px; /* Margem menor para dispositivos móveis */
-    }
+    font-family: consolas, sans-serif;
+    font-size: 26px;
+    text-decoration: none;
+    padding: 4px 12px;
+    display: inline-block;
+    background: var(--calendar-nextprev-bg-color);
+    margin: 0 0 10px 0;
 }
 </style>
 </head>
-<body>
 <div class="calendar"></div>
 <script>
-// Função de controle do calendário
+//check the console for date click event
+
 function CalendarControl() {
-  const calendar = new Date(); // Data atual
+  const calendar = new Date();
   const calendarControl = {
-    localDate: new Date(), // Data local atual
-    calWeekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"], // Nomes dos dias da semana
+    localDate: new Date(),
+    calWeekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
     calMonthName: [
-      "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
-      "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ], // Nomes dos meses
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro"
+    ],
     daysInMonth: function(month, year) {
-      // Retorna o número de dias em um mês específico
       return new Date(year, month, 0).getDate();
     },
     firstDay: function() {
-      // Obtém o primeiro dia do mês atual
       return new Date(calendar.getFullYear(), calendar.getMonth(), 1);
     },
     lastDay: function() {
-      // Obtém o último dia do mês atual
       return new Date(calendar.getFullYear(), calendar.getMonth() + 1, 0);
     },
     firstDayNumber: function() {
-      // Obtém o número do primeiro dia do mês
       return calendarControl.firstDay().getDay() + 1;
     },
     lastDayNumber: function() {
-      // Obtém o número do último dia do mês
       return calendarControl.lastDay().getDay() + 1;
     },
     getPreviousMonthLastDate: function() {
-      // Obtém o último dia do mês anterior
       let lastDate = new Date(
         calendar.getFullYear(),
         calendar.getMonth(),
@@ -191,17 +189,14 @@ function CalendarControl() {
       return lastDate;
     },
     navigateToPreviousMonth: function() {
-      // Navega para o mês anterior
       calendar.setMonth(calendar.getMonth() - 1);
       calendarControl.attachEventsOnNextPrev();
     },
     navigateToNextMonth: function() {
-      // Navega para o próximo mês
       calendar.setMonth(calendar.getMonth() + 1);
       calendarControl.attachEventsOnNextPrev();
     },
     navigateToCurrentMonth: function() {
-      // Navega para o mês atual
       let currentMonth = calendarControl.localDate.getMonth();
       let currentYear = calendarControl.localDate.getFullYear();
       calendar.setMonth(currentMonth);
@@ -209,90 +204,101 @@ function CalendarControl() {
       calendarControl.attachEventsOnNextPrev();
     },
     displayYear: function() {
-      // Exibe o ano atual no calendário
       let yearLabel = document.querySelector(".calendar .calendar-year-label");
       yearLabel.innerHTML = calendar.getFullYear();
     },
     displayMonth: function() {
-      // Exibe o mês atual no calendário
-      let monthLabel = document.querySelector(".calendar .calendar-month-label");
+      let monthLabel = document.querySelector(
+        ".calendar .calendar-month-label"
+      );
       monthLabel.innerHTML = calendarControl.calMonthName[calendar.getMonth()];
     },
     selectDate: function(e) {
       console.log(
-        `${e.target.textContent} ${calendarControl.calMonthName[calendar.getMonth()]} ${calendar.getFullYear()}`
+        `${e.target.textContent} ${
+          calendarControl.calMonthName[calendar.getMonth()]
+        } ${calendar.getFullYear()}`
       );
     },
     plotSelectors: function() {
-      // Desenha os botões de navegação e títulos do mês e ano
       document.querySelector(
         ".calendar"
       ).innerHTML += `<div class="calendar-inner"><div class="calendar-controls">
-          <div class="calendar-prev"><a href="#">&#9665;</a></div>
-          <div class="calendar-year-month">
-          <div class="calendar-month-label"></div>
-          <div class="calendar-year-label"></div>
-          </div>
-          <div class="calendar-next"><a href="#">&#9655;</a></div>
-          </div>
-          <div class="calendar-today-date">Hoje: 
-            ${calendarControl.calWeekDays[calendarControl.localDate.getDay()]}, 
-            ${calendarControl.localDate.getDate()}, 
-            ${calendarControl.calMonthName[calendarControl.localDate.getMonth()]} 
-            ${calendarControl.localDate.getFullYear()}
-          </div>
-          <div class="calendar-body"></div></div>`;
+      <div class="calendar-prev"><a href="#"><</a></div>
+      <div class="calendar-year-month">
+      <div class="calendar-month-label"></div>
+      <div>-</div>
+      <div class="calendar-year-label"></div>
+      </div>
+      <div class="calendar-next"><a href="#">></a></div>
+      </div>
+      <div class="calendar-today-date">Hoje: 
+        ${calendarControl.calWeekDays[calendarControl.localDate.getDay()]}, 
+        ${calendarControl.localDate.getDate()}, 
+        ${calendarControl.calMonthName[calendarControl.localDate.getMonth()]} 
+        ${calendarControl.localDate.getFullYear()}
+      </div>
+      <div class="calendar-body"></div></div>`;
     },
     plotDayNames: function() {
-      // Desenha os nomes dos dias da semana
       for (let i = 0; i < calendarControl.calWeekDays.length; i++) {
-        document.querySelector(
-          ".calendar .calendar-body"
-        ).innerHTML += `<div>${calendarControl.calWeekDays[i]}</div>`;
+        document.querySelector(".calendar .calendar-body").innerHTML += `<div>${
+          calendarControl.calWeekDays[i]
+        }</div>`;
       }
     },
     plotDates: function() {
-      // Desenha os dias do mês no calendário
       document.querySelector(".calendar .calendar-body").innerHTML = "";
       calendarControl.plotDayNames();
       calendarControl.displayMonth();
       calendarControl.displayYear();
       let count = 1;
       let prevDateCount = 0;
+      //let prevMonthLastDate = calendarControl.getPreviousMonthLastDate();
+      let calendarDays = calendarControl.daysInMonth(
+        calendar.getMonth() + 1,
+        calendar.getFullYear()
+      );
 
-      // Dias do mês anterior
-      for (let i = 1; i < calendarControl.firstDayNumber(); i++) {
-        prevDateCount++;
+      // dates of current month
+      for (let i = 1; i < calendarDays; i++) {
+        if (i < calendarControl.firstDayNumber()) {
+          prevDateCount += 1;
+          document.querySelector(
+            ".calendar .calendar-body"
+          ).innerHTML += `<div class="empty-dates"></div>`;
+        } else {
+          let currentMonth = calendarControl.localDate.getMonth() + 1;
+          let changedMonth = calendar.getMonth() + 1;
+          let currentYear = calendarControl.localDate.getFullYear();
+          let changedYear = calendar.getFullYear();
+          if (
+            currentYear === changedYear &&
+            currentMonth === changedMonth &&
+            count === calendar.getDate()
+          ) {
+            document.querySelector(
+              ".calendar .calendar-body"
+            ).innerHTML += `<div class="calendar-today"><a class="dateNumber" href="#">${count++}</a></div>`;
+          } else
+            document.querySelector(
+              ".calendar .calendar-body"
+            ).innerHTML += `<div><a class="dateNumber" href="#">${count++}</a></div>`;
+        }
+      }
+
+      //remaining dates after month dates
+      for (let j = 0; j < prevDateCount + 1; j++) {
         document.querySelector(
           ".calendar .calendar-body"
-        ).innerHTML += `<div class="prev-dates"></div>`;
+        ).innerHTML += `<div><a class="dateNumber" href="#">${count++}</a></div>`;
       }
-
-      // Dias do mês atual
-      for (let i = 1; i <= calendarControl.daysInMonth(calendar.getMonth() + 1, calendar.getFullYear()); i++) {
-        let date = i;
-        let dateElement = `<div class="number-item" data-num=${date}><a class="dateNumber" href="#">${date}</a></div>`;
-        document.querySelector(".calendar .calendar-body").innerHTML += dateElement;
-        count++;
-      }
-
-      // Dias do próximo mês
-      let extraDays = 13;
-      for (let j = 0; j < extraDays - calendarControl.lastDayNumber(); j++) {
-        document.querySelector(".calendar .calendar-body").innerHTML += `<div class="next-dates"></div>`;
-      }
-
-      calendarControl.highlightToday();
-      calendarControl.plotPrevMonthDates(prevDateCount);
-      calendarControl.plotNextMonthDates();
     },
     attachEvents: function() {
-      // Anexa eventos aos elementos interativos do calendário
       let prevBtn = document.querySelector(".calendar .calendar-prev a");
       let nextBtn = document.querySelector(".calendar .calendar-next a");
       let todayDate = document.querySelector(".calendar .calendar-today-date");
-      let dateNumbers = document.querySelectorAll(".calendar .dateNumber");
-
+      let dateNumber = document.querySelectorAll(".calendar .dateNumber");
       prevBtn.addEventListener(
         "click",
         calendarControl.navigateToPreviousMonth
@@ -302,65 +308,28 @@ function CalendarControl() {
         "click",
         calendarControl.navigateToCurrentMonth
       );
-
-      dateNumbers.forEach(dateNumber => {
-        dateNumber.addEventListener("click", calendarControl.selectDate);
-      });
-    },
-    highlightToday: function() {
-      // Destaque especial para o dia de hoje
-      let currentMonth = calendarControl.localDate.getMonth() + 1;
-      let changedMonth = calendar.getMonth() + 1;
-      let currentYear = calendarControl.localDate.getFullYear();
-      let changedYear = calendar.getFullYear();
-      if (
-        currentYear === changedYear &&
-        currentMonth === changedMonth &&
-        document.querySelectorAll(".number-item")
-      ) {
-        document
-          .querySelectorAll(".number-item")
-          [calendar.getDate() - 1].classList.add("calendar-today");
-      }
-    },
-    plotPrevMonthDates: function(count) {
-      // Desenha as datas do mês anterior que aparecem no início do calendário
-      let dates = [];
-      let prevMonthDatesArray = [];
-      for (let i = 0; i < count; i++) {
-        dates.unshift(calendarControl.getPreviousMonthLastDate() - i);
-        prevMonthDatesArray.push(
-          `<div class="prev-dates"></div>`
+      for (var i = 0; i < dateNumber.length; i++) {
+        dateNumber[i].addEventListener(
+          "click",
+          calendarControl.selectDate,
+          false
         );
-      }
-      document.querySelector(
-        ".calendar .calendar-body"
-      ).innerHTML = prevMonthDatesArray.join('') + document.querySelector(
-        ".calendar .calendar-body"
-      ).innerHTML;
-    },
-    plotNextMonthDates: function() {
-      // Desenha as datas do próximo mês que aparecem no final do calendário
-      let childElemCount = document.querySelector('.calendar-body').childElementCount;
-      if(childElemCount > 42) return;
-      let diff = 42 - childElemCount;
-      for (let i = 1; i <= diff; i++) {
-        document.querySelector('.calendar-body').innerHTML += `<div class="next-dates"></div>`;
       }
     },
     attachEventsOnNextPrev: function() {
-      // Atualiza os eventos de navegação
+      calendarControl.plotDates();
+      calendarControl.attachEvents();
+    },
+    init: function() {
+      calendarControl.plotSelectors();
       calendarControl.plotDates();
       calendarControl.attachEvents();
     }
   };
-  calendarControl.plotSelectors();
-  calendarControl.plotDates();
-  calendarControl.attachEvents();
+  calendarControl.init();
 }
 
-// Inicializa o calendário quando a página carrega
 const calendarControl = new CalendarControl();
+
 </script>
-</body>
 </html>
