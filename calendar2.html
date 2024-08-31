@@ -1,45 +1,42 @@
-<!-- 
-Source https://codepen.io/ismailvtl/pen/KrVrbp
--->
 <html>
 <head>
 <style>
-    
-@import url('https://fonts.googleapis.com/css?family=Nunito:400,600');
+@import url('https://fonts.googleapis.com/css2?family=Nova+Mono&display=swap');
 :root {
-    --calendar-bg-color: #262829;
+    --calendar-bg-color: #517a8f;
     --calendar-font-color: #FFF;
-    --weekdays-border-bottom-color: #404040;
-    --calendar-date-hover-color: #505050;
-    --calendar-current-date-color: #1b1f21;
-    --calendar-today-color: #2196F3;
-    --calendar-today-innerborder-color: #000;
-    --calendar-nextprev-bg-color: #1a1f21;
+    --weekdays-border-bottom-color: #909ff5;
+    --calendar-date-hover-color: #ffffff;
+    --calendar-current-date-color: #314868;
+    --calendar-today-color: #4da9c5;
+    --calendar-today-innerborder-color: #00849b;
+    --calendar-nextprev-bg-color: #006a94;
 }
 
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
-    body{
-    background-color: #262829;
-    }
+body {
+    background-color: transparent;
+}
+
 .calendar {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Nova Mono', monospace;
     position: relative;
-    max-width: 400px; /*change as per your design need */
-    min-width: 320px;
+    width: 100%; /* Use width 100% for flexibility */
+    max-width: 400px; /* Limita a largura máxima */
     background: var(--calendar-bg-color);
     color: var(--calendar-font-color);
     margin: 20px auto;
-    box-sizing: border-box;
     overflow: hidden;
     font-weight: normal;
 }
 
 .calendar-inner {
-    padding: 10px 10px;
+    padding: 10px;
 }
 
 .calendar .calendar-inner .calendar-body {
@@ -101,7 +98,6 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
 
 .calendar .calendar-inner .calendar-controls .calendar-year-month {
     display: flex;
-    min-width: 100px;
     justify-content: space-evenly;
     align-items: center;
 }
@@ -138,30 +134,40 @@ Source https://codepen.io/ismailvtl/pen/KrVrbp
     background: var(--calendar-nextprev-bg-color);
     margin: 0 0 10px 0;
 }
+
+/* Media query para dispositivos menores */
+@media (max-width: 480px) {
+    .calendar {
+        padding: 10px; /* Adiciona um espaçamento interno para dispositivos menores */
+    }
+    
+    .calendar .calendar-inner .calendar-controls .calendar-year-month {
+        flex-direction: column; /* Ajusta a direção do layout para economizar espaço */
+    }
+}
 </style>
 </head>
+<body>
 <div class="calendar"></div>
 <script>
-//check the console for date click event
-
 function CalendarControl() {
   const calendar = new Date();
   const calendarControl = {
     localDate: new Date(),
-    calWeekDays: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    calWeekDays: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
     calMonthName: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec"
+      "Janeiro",
+      "Fevereiro",
+      "Março",
+      "Abril",
+      "Maio",
+      "Junho",
+      "Julho",
+      "Agosto",
+      "Setembro",
+      "Outubro",
+      "Novembro",
+      "Dezembro"
     ],
     daysInMonth: function(month, year) {
       return new Date(year, month, 0).getDate();
@@ -230,7 +236,7 @@ function CalendarControl() {
       </div>
       <div class="calendar-next"><a href="#">></a></div>
       </div>
-      <div class="calendar-today-date">Today: 
+      <div class="calendar-today-date">Hoje: 
         ${calendarControl.calWeekDays[calendarControl.localDate.getDay()]}, 
         ${calendarControl.localDate.getDate()}, 
         ${calendarControl.calMonthName[calendarControl.localDate.getMonth()]} 
@@ -328,6 +334,6 @@ function CalendarControl() {
 }
 
 const calendarControl = new CalendarControl();
-
 </script>
+</body>
 </html>
