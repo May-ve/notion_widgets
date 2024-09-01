@@ -1,0 +1,96 @@
+/* Estilos para o widget de contagem regressiva */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.countdown-widget {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.add-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-date input {
+    padding: 5px;
+    width: 70%;
+}
+
+.add-date button {
+    padding: 6px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-date button:hover {
+    background-color: #45a049;
+}
+
+.time-units {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.time-units label {
+    display: flex;
+    align-items: center;
+}
+
+.countdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.countdown-item {
+    background-color: #e7f3fe;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #b3d8ff;
+}
+
+.countdown-item span {
+    font-weight: bold;
+}
+
+@media (max-width: 500px) {
+    .countdown-widget {
+        padding: 15px;
+    }
+
+    .add-date {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-date input {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .add-date button {
+        width: 100%;
+    }
+}
