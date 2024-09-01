@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Inclua o arquivo CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Widget de Contagem Regressiva</title>
+</head>
+<body>
+    <div class="countdown-widget">
+        <!-- Formulário para adicionar nova data -->
+        <div class="add-date">
+            <label for="new-date">Escolha uma data e hora:</label>
+            <input type="datetime-local" id="new-date">
+            <button id="add-date-btn">Adicionar Data</button>
+        </div>
+
+        <!-- Opções para escolher as unidades de tempo -->
+        <div class="time-units">
+            <label><input type="checkbox" id="years" checked> Anos</label>
+            <label><input type="checkbox" id="months" checked> Meses</label>
+            <label><input type="checkbox" id="days" checked> Dias</label>
+            <label><input type="checkbox" id="hours" checked> Horas</label>
+            <label><input type="checkbox" id="minutes" checked> Minutos</label>
+            <label><input type="checkbox" id="seconds" checked> Segundos</label>
+        </div>
+
+        <!-- Lista de contagens regressivas -->
+        <div class="countdown-list" id="countdown-list"></div>
+    </div>
+
+    <!-- Inclua o arquivo JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>
